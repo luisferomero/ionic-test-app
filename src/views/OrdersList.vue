@@ -39,11 +39,11 @@
 
       <div v-if="!loading">
         <ion-card v-for="(order, index) in orders" :key="order.id">
-          <ion-card-content class="d-flex justify-content-end">
-            <div class="d-flex pr-3">
-              <img src="../assets/phresale.svg" alt="Logo" class="align-self-center" />
+          <ion-card-content class="d-flex">
+            <div class="col-5">
+              <img src="../assets/img/test-piece.jpg" alt="Logo" class="rounded float-left img-fluid" />
             </div>
-            <div class="d-flex flex-column align-items-start w-75">
+            <div class="col offset-1 d-flex flex-column">
               <b>{{ order.store.name }}</b>
               <p class="piece">
                 <i>x{{ order.partRequest.vehiclePart.quantity }}</i>
@@ -56,23 +56,11 @@
               </p>
               <b class="price">${{ order.price }}</b>
               <div class="d-flex justify-content-between w-100 mt-3">
-                <ion-icon
-                  class="mr-2 btn-circle more"
-                  :icon="ellipsisHorizontal"
-                  @click="presentActionSheet(order)"
-                >
+                <ion-icon class="mr-1 btn-circle acept" :icon="checkmark" @click="accept(order)">
                 </ion-icon>
-                <ion-icon
-                  class="mr-2 btn-circle reject"
-                  :icon="close"
-                  @click="decline(order.id, index)"
-                >
+                <ion-icon class="mr-1 btn-circle reject" :icon="close" @click="decline(order.id, index)">
                 </ion-icon>
-                <ion-icon
-                  class="btn-circle acept"
-                  :icon="checkmark"
-                  @click="accept(order)"
-                >
+                <ion-icon class="mr-1 btn-circle more" :icon="ellipsisHorizontal" @click="presentActionSheet(order)">
                 </ion-icon>
               </div>
             </div>
@@ -415,7 +403,7 @@ async function decline(orderId: string, index: number) {
 
 <style scoped>
 .btn-circle {
-  font-size: 34px;
+  font-size: 28px;
   padding: 8px;
   border-radius: 50%;
 }

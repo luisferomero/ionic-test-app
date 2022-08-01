@@ -20,7 +20,7 @@
             <b>Tiendas</b>
           </ion-text>
         </div>
-        <div class="my-card flex-fill shadow-sm bg-2" @click="redirectTo('tabs/search')">
+        <div class="my-card flex-fill shadow-sm bg-2" @click="redirectTo('partRequest')">
           <ion-icon :icon="addCircle" color="light" size="large"></ion-icon>
           <ion-text color="light">
             <b>Solicitar Piezas</b>

@@ -26,9 +26,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
+
+defineCustomElements(window);
 
 router.isReady().then(() => {
   app.mount('#app');
