@@ -8,10 +8,10 @@
           <ion-label>Inicio</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/tabs/stores">
+        <!-- <ion-tab-button tab="tab2" href="/tabs/stores">
           <ion-icon :icon="cube" />
           <ion-label>Tiendas</ion-label>
-        </ion-tab-button>
+        </ion-tab-button> -->
 
         <ion-tab-button tab="tab3" href="/tabs/partRequest">
           <ion-icon :icon="addCircle" />

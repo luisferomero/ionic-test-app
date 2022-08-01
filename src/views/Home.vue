@@ -14,12 +14,12 @@
       </ion-header>
 
       <div class="d-flex flex-wrap justify-content-center px-4 mt-3 pt-5">
-        <div class="my-card flex-fill shadow-sm bg-3" @click="redirectTo('stores')">
+        <!-- <div class="my-card flex-fill shadow-sm bg-3" @click="redirectTo('stores')">
           <ion-icon :icon="cube" color="light" size="large"></ion-icon>
           <ion-text color="light">
             <b>Tiendas</b>
           </ion-text>
-        </div>
+        </div> -->
         <div class="my-card flex-fill shadow-sm bg-2" @click="redirectTo('partRequest')">
           <ion-icon :icon="addCircle" color="light" size="large"></ion-icon>
           <ion-text color="light">

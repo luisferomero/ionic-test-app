@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Orden</ion-title>
+        <ion-title>Ordenes</ion-title>
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -11,61 +11,78 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Orden</ion-title>
-        </ion-toolbar>
-        <ion-toolbar>
-          <ion-searchbar placeholder="Buscar" @change="buscar($event)"></ion-searchbar>
+          <ion-title size="large">Ordenes</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      <div v-if="loading">
-        <ion-item lines="none" v-for="(item, index) in [1, 2, 3, 4]" :key="index">
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h3>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </h3>
-            <p>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </p>
-            <p>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </p>
-          </ion-label>
-        </ion-item>
-      </div>
+      <div class="container mt-3">
+        <div v-if="loading">
+          <ion-item lines="none" v-for="(item, index) in [1, 2, 3, 4]" :key="index">
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </div>
 
-      <div v-if="!loading">
-        <ion-card v-for="(order, index) in orders" :key="order.id">
-          <ion-card-content class="d-flex">
-            <div class="col-5">
-              <img src="../assets/img/test-piece.jpg" alt="Logo" class="rounded float-left img-fluid" />
-            </div>
-            <div class="col offset-1 d-flex flex-column">
-              <b>{{ order.store.name }}</b>
-              <p class="piece">
-                <i>x{{ order.partRequest.vehiclePart.quantity }}</i>
-                {{ order.partRequest.vehiclePart.part.name }}
-              </p>
-              <p class="model">
-                {{ order.partRequest.vehiclePart.make.name }}
-                {{ order.partRequest.vehiclePart.model.name }}
-                {{ order.partRequest.vehiclePart.year }}
-              </p>
-              <b class="price">${{ order.price }}</b>
-              <div class="d-flex justify-content-between w-100 mt-3">
-                <ion-icon class="mr-1 btn-circle acept" :icon="checkmark" @click="accept(order)">
-                </ion-icon>
-                <ion-icon class="mr-1 btn-circle reject" :icon="close" @click="decline(order.id, index)">
-                </ion-icon>
-                <ion-icon class="mr-1 btn-circle more" :icon="ellipsisHorizontal" @click="presentActionSheet(order)">
-                </ion-icon>
-              </div>
-            </div>
-          </ion-card-content>
-        </ion-card>
+        <div v-if="!loading">
+          <ion-list lines="inset" mode="ios">
+            <ion-item v-for="(order, index) in orders" :key="order.id" class="pt-2">
+              <ion-thumbnail class="thumbnail" slot="start">
+                <img src="../assets/img/test-piece.jpg" alt="Logo" class="rounded" />
+              </ion-thumbnail>
+              <ion-label>
+                <ion-row class="ion-text-wrap">
+                  <h2>
+                    {{ order.partRequest.vehiclePart.part.name }}
+                  </h2>
+                </ion-row>
+                <ion-row class="mt-2">
+                  <p class="fs-6">
+                    {{ order.partRequest.vehiclePart.make.name }}
+                    {{ order.partRequest.vehiclePart.model.name }}
+                    {{ order.partRequest.vehiclePart.year }}
+                  </p>
+                </ion-row>
+                <ion-row class="mt-2">
+                  <ion-chip>
+                    <ion-label color="dark">
+                      {{ order.partRequest.vehiclePart.quantity }}
+                    </ion-label>
+                  </ion-chip>
+                  <h2 class="fs-5 mt-2 mb-4 ms-2">${{ order.price }}</h2>
+                </ion-row>
+                <ion-row>
+                  <ion-button
+                    class="me-2"
+                    color="success"
+                    shape="round"
+                    @click="accept(order)"
+                  >
+                    Aceptar
+                  </ion-button>
+                  <ion-button
+                    color="danger"
+                    shape="round"
+                    @click="decline(order.id, index)"
+                  >
+                    Rechazar
+                  </ion-button>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -91,10 +108,16 @@ import {
   IonButtons,
   IonBackButton,
   onIonViewWillEnter,
-  IonIcon,
+  // IonIcon,
   IonThumbnail,
   alertController,
   AlertInput,
+  IonChip,
+  IonButton,
+  IonList,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 
 defineComponent({
@@ -108,13 +131,18 @@ defineComponent({
     IonSkeletonText,
     IonLabel,
     IonItem,
-    IonCard,
-    IonCardContent,
-    IonSearchbar,
+    // IonCard,
+    // IonCardContent,
     IonButtons,
     IonBackButton,
-    IonIcon,
+    // IonIcon,
     IonThumbnail,
+    IonChip,
+    IonButton,
+    IonList,
+    // IonGrid,
+    // IonRow,
+    // IonCol,
   },
 });
 
@@ -137,7 +165,7 @@ onIonViewWillEnter(() => {
           vehiclePart: {
             part: {
               id: "1",
-              name: "Amortiguador",
+              name: "Nombre de pieza muy muy muy largo 123456",
               description: "Amortiguador",
               date: new Date(),
             },
@@ -426,5 +454,22 @@ async function decline(orderId: string, index: number) {
 
 .w-60 {
   width: 60%;
+}
+
+img {
+  /* object-fit: cover; */
+  /* width: 150px;
+  height: 150px; */
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+.thumbnail {
+  height: 125px;
+  width: 125px;
 }
 </style>

@@ -15,104 +15,158 @@
         </ion-toolbar>
       </ion-header>
 
-      <div class="mt-4">
+      <div class="mt-4 container my-container">
         <ion-card>
-          <ion-card-content>
-            <ion-item-group>
-              <ion-item-divider>
-                <ion-label>
-                  Informcaion del Vehiculo
-                </ion-label>
-              </ion-item-divider>
-              <ion-item>
-                <ion-label>Marca:</ion-label>
-                <ion-select v-model="partRequest.makeId" @change="onMakeSelection">
-                  <ion-select-option v-for="make in makes" :key="make.id" :value="make.id">
+          <ion-card-content class="ion-padding">
+            <ion-label color="dark">
+              <b>Informcaion del Vehiculo</b>
+            </ion-label>
+            <form class="row g-3 mt-1">
+              <div class="col-md-6">
+                <label for="make" class="form-label">Marca:</label>
+                <select
+                  id="make "
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="partRequest.makeId"
+                >
+                  <option v-for="make in makes" :key="make.id" :value="make.id">
                     {{ make.name }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
+                  </option>
+                </select>
+              </div>
 
-              <ion-item>
-                <ion-label>Modelo:</ion-label>
-                <ion-select v-model="partRequest.modelId">
-                  <ion-select-option v-for="model in models" :key="model.id" :value="model.id">
+              <div class="col-md-6 mt-3">
+                <label for="make" class="form-label">Modelo:</label>
+                <select
+                  id="make "
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="partRequest.modelId"
+                >
+                  <option v-for="model in models" :key="model.id" :value="model.id">
                     {{ model.name }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
+                  </option>
+                </select>
+              </div>
 
-              <ion-item>
-                <ion-label>Año:</ion-label>
-                <ion-select v-model="partRequest.year">
-                  <ion-select-option v-for="year in years" :key="year" :value="year">
+              <div class="col-md-6 my-3">
+                <label for="make" class="form-label">Año:</label>
+                <select
+                  id="make "
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="partRequest.year"
+                >
+                  <option v-for="year in years" :key="year" :value="year">
                     {{ year }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-item-group>
+                  </option>
+                </select>
+              </div>
+            </form>
           </ion-card-content>
         </ion-card>
 
-        <ion-item-group class="mt-5">
-          <ion-item-divider>
-            <ion-label>
-              Informacion de la Pieza
+        <ion-card>
+          <ion-card-content>
+            <ion-label color="dark">
+              <b>Informacion de la Pieza</b>
             </ion-label>
-          </ion-item-divider>
-          <ion-item>
-            <ion-label>Tipo de Pieza:</ion-label>
-            <ion-input v-model="partRequest.partId"></ion-input>
-          </ion-item>
+            <form class="row g-3 mt-1">
+              <div>
+                <label for="part" class="form-label">Nombre de pieza:</label>
+                <input class="form-control" id="part" v-model="partRequest.partId" />
+              </div>
 
-          <ion-item>
-            <ion-label>Condicion:</ion-label>
-            <ion-select v-model="partRequest.condition">
-              <ion-select-option v-for="condition in conditions" :key="condition.id" :value="condition.name">
-                {{ condition.name }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+              <div class="col-md-6 mt-3">
+                <label for="make" class="form-label">Condicion:</label>
+                <select
+                  id="make "
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="partRequest.condition"
+                >
+                  <option
+                    v-for="condition in conditions"
+                    :key="condition.id"
+                    :value="condition.name"
+                  >
+                    {{ condition.name }}
+                  </option>
+                </select>
+              </div>
 
-          <ion-item>
-            <ion-label>Origen:</ion-label>
-            <ion-select v-model="partRequest.source">
-              <ion-select-option v-for="source in sources" :key="source.id" :value="source.name">
-                {{ source.name }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+              <div class="col-md-6 mt-3">
+                <label for="make" class="form-label">Origen:</label>
+                <select
+                  id="make "
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="partRequest.source"
+                >
+                  <option v-for="source in sources" :key="source.id" :value="source.name">
+                    {{ source.name }}
+                  </option>
+                </select>
+              </div>
 
-          <ion-item>
-            <ion-label>Cantidad:</ion-label>
-            <ion-select v-model="partRequest.quantity">
-              <ion-select-option v-for="(quantity, index) in quantities" :key="index" :value="quantity">
-                {{ quantity }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+              <div class="col-12">
+                <label for="customRange2" class="form-label">
+                  Cantidad: <b>{{ partRequest.quantity }}</b>
+                </label>
+                <!-- <div class="col-12 px-lg-4">
+                  <input type="range" class="form-range" min="0" max="10" id="customRange2"
+                    v-model="partRequest.quantity" />
+                </div> -->
+                <ion-range
+                  v-model="partRequest.quantity"
+                  :ticks="true"
+                  :snaps="true"
+                  :min="0"
+                  :max="10"
+                ></ion-range>
+              </div>
 
-          <ion-item lines="none">
-            <ion-label>Numero VIN:</ion-label>
-            <ion-input v-model="partRequest.vinNumber"></ion-input>
-          </ion-item>
+              <div class="col">
+                <label for="vinNumber" class="form-label">Numero VIN:</label>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="vinNumber"
+                    aria-label="VIN Number"
+                    aria-describedby="button-addon2"
+                    v-model="partRequest.vinNumber"
+                  />
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    id="button-addon2"
+                    @click="takePhoto()"
+                  >
+                    <ion-icon :icon="camera"></ion-icon>
+                  </button>
+                </div>
+              </div>
 
-          <ion-item>
-            <ion-button size="default" @click="takePhoto()">
-              <ion-icon :icon="camera"></ion-icon>
-            </ion-button>
-          </ion-item>
+              <div class="mb-3">
+                <label for="aditionalNotes" class="form-label">Notas Adicionales:</label>
+                <textarea
+                  class="form-control"
+                  id="aditionalNotes"
+                  rows="3"
+                  v-model="partRequest.notes"
+                ></textarea>
+              </div>
+            </form>
+          </ion-card-content>
+        </ion-card>
 
-          <ion-item>
-            <ion-label position="floating">Notas Adicionales:</ion-label>
-            <ion-textarea :autocapitalize="'on'" v-model="partRequest.notes" position="floating">
-            </ion-textarea>
-          </ion-item>
-        </ion-item-group>
-
-        <ion-button @click="validate()" shape="round" expand="block" class="my-4 mx-4">
-          Solicitar
-        </ion-button>
+        <div class="d-grid gap-2 col-12 col-md-6 mx-auto px-4 my-4">
+          <ion-button :strong="true" @click="validate()" shape="round">
+            Solicitar
+          </ion-button>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -120,12 +174,12 @@
 
 <script setup lang="ts">
 import { defineComponent, ref, Ref, reactive } from "vue";
-import { camera, trash, close } from 'ionicons/icons';
+import { camera, trash, close } from "ionicons/icons";
 import { Store } from "../models/Store";
-import { VehiclePart } from '../models/VehiclePart';
-import { Make } from '../models/Make';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import { VehiclePart } from "../models/VehiclePart";
+import { Make } from "../models/Make";
+import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera";
+import { Filesystem, Directory } from "@capacitor/filesystem";
 import {
   IonPage,
   IonHeader,
@@ -133,21 +187,15 @@ import {
   IonTitle,
   IonContent,
   IonLabel,
-  IonItem,
   IonButtons,
   IonBackButton,
   onIonViewWillEnter,
-  IonSelect,
-  IonSelectOption,
-  IonInput,
   IonButton,
-  IonTextarea,
   alertController,
   IonIcon,
-  IonItemDivider,
-  IonItemGroup,
   IonCard,
-  IonCardContent
+  IonCardContent,
+  IonRange,
 } from "@ionic/vue";
 
 defineComponent({
@@ -159,17 +207,11 @@ defineComponent({
     IonContent,
     IonPage,
     IonLabel,
-    IonItem,
     IonButtons,
     IonBackButton,
-    IonSelect,
-    IonSelectOption,
-    IonInput,
     IonButton,
-    IonTextarea,
     IonIcon,
-    IonItemDivider,
-    IonItemGroup
+    IonRange,
   },
 });
 
@@ -188,7 +230,7 @@ const partRequest = reactive({
   modelId: "",
   year: "",
   condition: "",
-  quantity: "",
+  quantity: 0,
   notes: "",
   source: "",
   type: "",
@@ -206,15 +248,15 @@ const models: Ref<Make[]> = ref([]);
 const quantities: number[] = [];
 const years: number[] = [];
 const conditions = [
-  { id: 1, name: 'Nueva' },
-  { id: 2, name: 'Usada' },
-  { id: 3, name: 'Reemplazo' }
+  { id: 1, name: "Nueva" },
+  { id: 2, name: "Usada" },
+  { id: 3, name: "Reemplazo" },
 ];
 const sources = [
-  { id: 1, name: 'Americano' },
-  { id: 2, name: 'Europeo' },
-  { id: 3, name: 'Japones' },
-  { id: 4, name: 'Otro' },
+  { id: 1, name: "Americano" },
+  { id: 2, name: "Europeo" },
+  { id: 3, name: "Japones" },
+  { id: 4, name: "Otro" },
 ];
 
 function buscar(event: any) {
@@ -236,23 +278,26 @@ function onMakeSelection() {
 }
 
 async function validate() {
-  if (!isValid())
-    return;
+  if (!isValid()) return;
 
   const alert = await alertController.create({
-    header: 'Confirmacion',
+    header: "Confirmacion",
     buttons: [
       {
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => { console.log('Alert canceled'); }
+        text: "Cancelar",
+        role: "cancel",
+        handler: () => {
+          console.log("Alert canceled");
+        },
       },
       {
-        text: 'OK',
-        role: 'confirm',
-        handler: () => { console.log('Alert confirmed'); }
-      }
-    ]
+        text: "OK",
+        role: "confirm",
+        handler: () => {
+          console.log("Alert confirmed");
+        },
+      },
+    ],
   });
 
   await alert.present();
@@ -262,24 +307,24 @@ async function isValid() {
   let valid = true;
   const keys = Object.keys(partRequest);
   const requiredFields = [
-    { label: 'Pieza', name: 'part' },
-    { label: 'Marca', name: 'make' },
-    { label: 'Modelo', name: 'model' },
-    { label: 'Año', name: 'year' },
-    { label: 'Condicion', name: 'condition' },
-    { label: 'Cantidad', name: 'quantity' },
-  ]
+    { label: "Pieza", name: "part" },
+    { label: "Marca", name: "make" },
+    { label: "Modelo", name: "model" },
+    { label: "Año", name: "year" },
+    { label: "Condicion", name: "condition" },
+    { label: "Cantidad", name: "quantity" },
+  ];
   let i = 0;
 
   while (valid && i < keys.length) {
-    let index = requiredFields.findIndex(x => x.name == keys[i]);
+    let index = requiredFields.findIndex((x) => x.name == keys[i]);
     type ObjectKey = keyof typeof partRequest;
 
     if (index != -1 && !partRequest[keys[i] as ObjectKey]) {
       const alert = await alertController.create({
-        header: 'Atencion',
+        header: "Atencion",
         message: `El campo ${requiredFields[index].label} es requerido`,
-        buttons: ['OK']
+        buttons: ["OK"],
       });
 
       await alert.present();
@@ -298,8 +343,12 @@ async function takePhoto() {
     quality: 100,
   });
 }
-
 </script>
 
 <style scoped>
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
 </style>
